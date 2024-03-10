@@ -44,6 +44,62 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+ChatBot::ChatBot(const ChatBot &source) {
+    std::cout << "ChatBot Copy Constructor";
+
+    // image is owned, so we allocate the memory and copy content
+    _image = new wxBitmap(*source._image);
+
+    // not-owned, so we just copy pointers
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+}
+
+ChatBot& ChatBot::operator=(const ChatBot &source) {
+    std::cout << "ChatBot Copy Assignment";
+    if (this == &source) {
+        return *this;
+    }
+
+    delete _image;
+    _image = new wxBitmap(*source._image);
+
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+
+    return *this;
+}
+
+ChatBot::ChatBot(ChatBot &&source) noexcept {
+    std::cout << "ChatBot Move Constructor";
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+
+    source._image = nullptr;
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+}
+
+ChatBot& ChatBot::operator=(ChatBot &&source) noexcept {
+    std::cout << "ChatBot Move Assignment";
+    if (this == &source) {
+        return *this;
+    }
+
+    delete _image;
+    _image = source._image;
+
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+
+    return *this;
+}
 
 ////
 //// EOF STUDENT CODE

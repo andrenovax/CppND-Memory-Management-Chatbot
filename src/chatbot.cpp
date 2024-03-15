@@ -48,7 +48,8 @@ ChatBot::ChatBot(const ChatBot &source) {
     std::cout << "ChatBot Copy Constructor" << std::endl;
 
     // image is owned, so we allocate the memory and copy content
-    _image = new wxBitmap(*source._image);
+    _image = new wxBitmap;
+    *_image = *source._image;
 
     // not-owned, so we just copy pointers
     _currentNode = source._currentNode;
@@ -63,7 +64,8 @@ ChatBot& ChatBot::operator=(const ChatBot &source) {
     }
 
     delete _image;
-    _image = new wxBitmap(*source._image);
+    _image = new wxBitmap;
+    *_image = *source._image;
 
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
@@ -92,7 +94,8 @@ ChatBot& ChatBot::operator=(ChatBot &&source) noexcept {
     }
 
     delete _image;
-    _image = source._image;
+    _image = new wxBitmap;
+    *_image = *source._image;
 
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
